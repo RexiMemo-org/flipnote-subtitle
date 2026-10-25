@@ -1,0 +1,188 @@
+{
+  "valid": [
+    {
+      "name": "multiline and inclusive single-page range",
+      "input": "1\n1 --> 4\nHello\nAgain\n\n2\n5 --> 5\nBye\n",
+      "cues": [
+        {
+          "start": 1,
+          "end": 4,
+          "text": "Hello\nAgain"
+        },
+        {
+          "start": 5,
+          "end": 5,
+          "text": "Bye"
+        }
+      ]
+    },
+    {
+      "name": "BOM CRLF and Japanese",
+      "input": "\ufeff1\r\n1 --> 12\r\n\u3053\u3093\u306b\u3061\u306f\uff01\r\n",
+      "cues": [
+        {
+          "start": 1,
+          "end": 12,
+          "text": "\u3053\u3093\u306b\u3061\u306f\uff01"
+        }
+      ]
+    },
+    {
+      "name": "Arabic and literal markup",
+      "input": "1\n1 --> 3\n\u0645\u0631\u062d\u0628\u0627 <b>123</b>",
+      "cues": [
+        {
+          "start": 1,
+          "end": 3,
+          "text": "\u0645\u0631\u062d\u0628\u0627 <b>123</b>"
+        }
+      ]
+    },
+    {
+      "name": "non-consecutive numbers sorted by page",
+      "input": "8\n20-->30\nLater\n \t\n3\n1 --> 8\n Earlier \n",
+      "cues": [
+        {
+          "start": 1,
+          "end": 8,
+          "text": " Earlier "
+        },
+        {
+          "start": 20,
+          "end": 30,
+          "text": "Later"
+        }
+      ]
+    },
+    {
+      "name": "leading blank lines and CR",
+      "input": "\n\n1\r1 --> 1\rOnly\r",
+      "cues": [
+        {
+          "start": 1,
+          "end": 1,
+          "text": "Only"
+        }
+      ]
+    },
+    {
+      "name": "multiple whitespace separators",
+      "input": "1\n1 --> 4\nHello\n \n\t\n\n2\n5 --> 8\nAgain\n",
+      "cues": [
+        {
+          "start": 1,
+          "end": 4,
+          "text": "Hello"
+        },
+        {
+          "start": 5,
+          "end": 8,
+          "text": "Again"
+        }
+      ]
+    },
+    {
+      "name": "emoji and combining marks",
+      "input": "1\n1 --> 3\n\ud83d\ude00 \u062d\u0648\u0649\u0670 \u0639\u0650\u0644\u0645\u0627\u064b\n",
+      "cues": [
+        {
+          "start": 1,
+          "end": 3,
+          "text": "\ud83d\ude00 \u062d\u0648\u0649\u0670 \u0639\u0650\u0644\u0645\u0627\u064b"
+        }
+      ]
+    },
+    {
+      "name": "largest supported page",
+      "input": "1\n9007199254740991 --> 9007199254740991\nLast\n",
+      "cues": [
+        {
+          "start": 9007199254740991,
+          "end": 9007199254740991,
+          "text": "Last"
+        }
+      ]
+    }
+  ],
+  "invalid": [
+    {
+      "name": "empty",
+      "input": "\ufeff\r\n"
+    },
+    {
+      "name": "ordinary SRT",
+      "input": "1\n00:00:00,000 --> 00:00:01,000\nHello"
+    },
+    {
+      "name": "missing sequence",
+      "input": "1 --> 4\nHello"
+    },
+    {
+      "name": "zero sequence",
+      "input": "0\n1 --> 4\nHello"
+    },
+    {
+      "name": "zero page",
+      "input": "1\n0 --> 4\nHello"
+    },
+    {
+      "name": "negative page",
+      "input": "1\n-1 --> 4\nHello"
+    },
+    {
+      "name": "fractional page",
+      "input": "1\n1.5 --> 4\nHello"
+    },
+    {
+      "name": "reversed range",
+      "input": "1\n4 --> 1\nHello"
+    },
+    {
+      "name": "overlapping inclusive boundary",
+      "input": "1\n1 --> 4\nHello\n\n2\n4 --> 8\nAgain"
+    },
+    {
+      "name": "unsafe integer",
+      "input": "1\n1 --> 9007199254740992\nHello"
+    },
+    {
+      "name": "missing text",
+      "input": "1\n1 --> 4\n"
+    },
+    {
+      "name": "control character",
+      "input": "1\n1 --> 4\nHello\u0000"
+    },
+    {
+      "name": "past last page",
+      "input": "1\n1 --> 4\nHello",
+      "maxPage": 3
+    },
+    {
+      "name": "too many cues",
+      "input": "1\n1 --> 4\nHello\n\n2\n5 --> 8\nAgain",
+      "maxCues": 1
+    },
+    {
+      "name": "unsafe sequence number",
+      "input": "9007199254740992\n1 --> 3\nHello"
+    },
+    {
+      "name": "timing settings are not page numbers",
+      "input": "1\n1 --> 3 align:start\nHello"
+    },
+    {
+      "name": "unpaired high surrogate",
+      "input": "1\n1 --> 3\n\ud800"
+    },
+    {
+      "name": "unpaired low surrogate",
+      "input": "1\n1 --> 3\n\udfff"
+    },
+    {
+      "name": "unsafe configured page limit",
+      "input": "1\n1 --> 3\nHello",
+      "maxPage": 9007199254740992
+    }
+  ]
+}

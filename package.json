@@ -1,0 +1,11 @@
+{
+  "name": "flipnote-subtitle",
+  "version": "1.0.0",
+  "description": "Read and write frame-timed Flipnote Subtitle (.fsrt) files",
+  "license": "MIT",
+  "main": "fsrt.js",
+  "files": ["fsrt.js", "fsrt.py", "SPEC.md", "examples"],
+  "engines": {"node": ">=18"},
+  "scripts": {"test": "node --test tests/fsrt.test.js"},
+  "keywords": ["flipnote", "fsrt", "subtitles", "ppm", "kwz"]
+}
